@@ -279,13 +279,14 @@ module.exports = function(app, swig, gestorBD) {
         }
         gestorBD.obtenerCanciones(criterioAutor, function (cancion){
             if(cancion!=null){
-                res.send("No puedes comprar tu canción");
-
+                let mensaje = "No puedes comprar tu canción";
+                res.redirect("/error?mensaje="+mensaje);
 
             }else{
                 gestorBD.obtenerCompras(criterio, function (arrayCompras) {
                     if(arrayCompras.length>0){
-                       res.send("Ya tienes esta canción");
+                       let mensaje = "Ya tienes esta canción";
+                        res.redirect("/error?mensaje="+mensaje);
 
                     }else{
 
