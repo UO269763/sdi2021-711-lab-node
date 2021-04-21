@@ -236,6 +236,7 @@ module.exports = function(app, swig, gestorBD) {
             paso2ModificarAudio(files, id, callback); // SIGUIENTE
         }
     };
+
     function paso2ModificarAudio(files, id, callback){
         if (files && files.audio != null) {
             let audio = files.audio;
@@ -270,9 +271,7 @@ module.exports = function(app, swig, gestorBD) {
         let criterio = {
             "cancionId": gestorBD.mongo.ObjectID(req.params.id),
             "usuario": req.session.usuario
-
         }
-
         let criterioAutor={
             "_id": gestorBD.mongo.ObjectID(req.params.id),
             "autor":req.session.usuario
@@ -287,9 +286,7 @@ module.exports = function(app, swig, gestorBD) {
                     if(arrayCompras.length>0){
                        let mensaje = "Ya tienes esta canción";
                         res.redirect("/error?mensaje="+mensaje);
-
-                    }else{
-
+                    } else {
                         gestorBD.insertarCompra(compra, function (idCompra) {
                             if (idCompra == null) {
                                 res.send("No se ha podido realizar la compra");
