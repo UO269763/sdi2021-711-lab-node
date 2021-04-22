@@ -21,10 +21,9 @@
 
 </div>
 
-
 <script>
-
     window.history.pushState("", "", "/cliente.html?w=canciones");
+
     var canciones;
     function cargarCanciones(){
         $.ajax({
@@ -60,6 +59,25 @@
         }
     }
     cargarCanciones();
+
+    function eliminar( _id ) {
+        $.ajax({
+            url: URLbase + "/cancion/"+_id,
+            type: "DELETE",
+            data: { },
+            dataType: 'json',
+            headers: { "token": token },
+            success: function(respuesta) {
+                console.log("Eliminada: "+_id);
+                $( "#"+_id ).remove(); // eliminar el <tr> de la canción
+            },
+            error : function (error){
+                console.log(error);
+
+                $( "#contenedor-principal" ).load("widget-login.html");
+            }
+        });
+    }
 
     function detalles(_id) {
         idCancionSeleccionada = _id;
@@ -106,24 +124,5 @@
             return 0;
         });
         actualizarTabla(canciones);
-    }
-</script>
-
-<script>
-    function eliminar( _id ) {
-        $.ajax({
-            url: URLbase + "/cancion/"+_id,
-            type: "DELETE",
-            data: { },
-            dataType: 'json',
-            headers: { "token": token },
-            success: function(respuesta) {
-                console.log("Eliminada: "+_id);
-                $( "#"+_id ).remove(); // eliminar el <tr> de la canción
-            },
-            error : function (error){
-                $( "#contenedor-principal" ).load("widget-login.html");
-            }
-        });
     }
 </script>
